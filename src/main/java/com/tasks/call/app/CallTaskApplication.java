@@ -54,17 +54,7 @@ public class CallTaskApplication {
                         List<WatchEvent<?>> events = key.pollEvents();
                         events.removeIf(event -> event.kind() == OVERFLOW);
                         List<Path> paths = ((List<Path>) events.stream().map(WatchEvent::context).collect(Collectors.toList()));
-
-                        for (Path path : paths) {
-                            final Path child = currentDir.resolve(path);
-
-                            try {
-                                final Call call = mapper.readValue(child.toFile(), Call.class);
-                                callRepository.save(call);
-                            } catch (JsonMappingException | JsonParseException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                        processFiles(currentDir, paths, mapper, callRepository);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -73,5 +63,18 @@ public class CallTaskApplication {
                 e.printStackTrace();
             }
         };
+    }
+
+    private void processFiles(final Path currentDir, final List<Path> paths, final ObjectMapper mapper, final ICallRepository repository) {
+        for (Path path : paths) {
+            final Path child = currentDir.resolve(path);
+
+            try {
+                final Call call = mapper.readValue(child.toFile(), Call.class);
+                repository.save(call);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
