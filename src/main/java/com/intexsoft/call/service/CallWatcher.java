@@ -5,7 +5,6 @@ import com.intexsoft.call.model.Call;
 import com.intexsoft.call.repository.CallRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -15,20 +14,29 @@ import java.util.stream.Collectors;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
-public class FileWatcher {
+public class CallWatcher {
 
-    private Logger logger = LoggerFactory.getLogger(FileWatcher.class);
+    private Logger logger = LoggerFactory.getLogger(CallWatcher.class);
     private final Path directory;
     private final CallRepository callRepository;
     private final ObjectMapper objectMapper;
 
-    public FileWatcher(final String directoryName, final CallRepository repository) {
+    /**
+     * <p>Creates CallWatcher for specified directory</p>
+     *
+     * @param directoryName - directory with incoming files
+     * @param repository - CRUD Repository for Call entity
+     */
+    public CallWatcher(final String directoryName, final CallRepository repository) {
         this.directory = Paths.get(directoryName);
         this.callRepository = repository;
         objectMapper = new ObjectMapper();
-        logger.info("Working directoryName: " + directory.toAbsolutePath().toString());
+        logger.info("Working directory: " + directory.toAbsolutePath().toString());
     }
 
+    /**
+     * <p>Starts watching a directory for incoming files</p>
+     */
     public void watch() {
         WatchService watchService = registerWatchService(directory);
         boolean validResult = true;

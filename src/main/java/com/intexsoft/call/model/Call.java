@@ -1,4 +1,4 @@
-package com.tasks.call.app.model;
+package com.intexsoft.call.model;
 
 import javax.persistence.*;
 
