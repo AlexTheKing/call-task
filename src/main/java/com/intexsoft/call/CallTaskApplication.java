@@ -1,9 +1,7 @@
 package com.intexsoft.call;
 
 import com.intexsoft.call.repository.CallRepository;
-import com.intexsoft.call.service.CallWatcher;
 import com.intexsoft.call.service.CallWatcherRunner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

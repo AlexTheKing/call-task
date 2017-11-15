@@ -25,7 +25,7 @@ public class CallWatcher {
      * <p>Creates CallWatcher for specified directory</p>
      *
      * @param directoryName - directory with incoming files
-     * @param repository - CRUD Repository for Call entity
+     * @param repository    - CRUD Repository for Call entity
      */
     public CallWatcher(final String directoryName, final CallRepository repository) {
         this.directory = Paths.get(directoryName);
