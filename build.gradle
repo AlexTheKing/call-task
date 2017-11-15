@@ -17,6 +17,7 @@ apply plugin: 'org.springframework.boot'
 group = 'com.tasks.call'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
@@ -25,5 +26,9 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.2'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.2.1'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

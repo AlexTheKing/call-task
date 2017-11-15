@@ -1,9 +1,6 @@
 package com.tasks.call.app.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "calls")
@@ -13,10 +10,14 @@ public class Call {
     @GeneratedValue
     private long id;
 
+    @Column(name = "callId")
     private long callId;
-    private String from;
-    private String to;
-    private long time;
+    @Column(name = "fromNumber")
+    private String fromNumber;
+    @Column(name = "toNumber")
+    private String toNumber;
+    @Column(name = "callTime")
+    private long callTime;
 
     public long getId() {
         return id;
@@ -34,27 +35,27 @@ public class Call {
         this.callId = callId;
     }
 
-    public String getFrom() {
-        return from;
+    public long getCallTime() {
+        return callTime;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setCallTime(long callTime) {
+        this.callTime = callTime;
     }
 
-    public String getTo() {
-        return to;
+    public String getFromNumber() {
+        return fromNumber;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setFromNumber(String fromNumber) {
+        this.fromNumber = fromNumber;
     }
 
-    public long getTime() {
-        return time;
+    public String getToNumber() {
+        return toNumber;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setToNumber(String toNumber) {
+        this.toNumber = toNumber;
     }
 }
