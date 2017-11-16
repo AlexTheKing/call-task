@@ -1,18 +1,21 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.8.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
 }
 
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.intexsoft.call.CallTaskApplication'
+    }
+}
 
 group = 'com.tasks.call'
 version = '0.0.1-SNAPSHOT'
@@ -24,7 +27,11 @@ repositories {
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile group: 'org.hibernate', name: 'hibernate-core', version:'5.2.12.Final'
+    compile group: 'org.springframework', name: 'spring-core', version: '5.0.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '5.0.1.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.1.RELEASE'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.2'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.2.1'
@@ -32,5 +39,4 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
-    testCompile('org.springframework.boot:spring-boot-starter-test')
 }

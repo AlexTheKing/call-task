@@ -1,10 +1,8 @@
 package com.intexsoft.call.model;
 
-import org.springframework.data.domain.Persistable;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -14,11 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "calls")
-public class Call implements Persistable<Long> {
-
-    @Id
-    @GeneratedValue
-    private long id;
+public class Call extends AbstractPersistable<Long> {
 
     /**
      * An ID of call
@@ -38,27 +32,10 @@ public class Call implements Persistable<Long> {
     /**
      * Time when call was made
      */
-    public long callTime;
+    public long startTime;
 
     /**
-     * Implemented method from {@code Persistable<T>}
-     * Returns database ID of the instance
-     *
-     * @return Long - database ID of the persisted instance
+     * Time when call was ended
      */
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * Implemented method from {@code Persistable<T>}
-     * Returns boolean which indicates whether an object is new or was already persisted
-     *
-     * @return boolean - shows if the instance is new and has not been persisted yet.
-     */
-    @Override
-    public boolean isNew() {
-        return id == 0;
-    }
+    public long endTime;
 }
