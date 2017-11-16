@@ -1,4 +1,4 @@
-package com.intexsoft.call.service;
+package com.intexsoft.call.watcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intexsoft.call.model.Call;
@@ -14,6 +14,12 @@ import java.util.stream.Collectors;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 
+/**
+ * <p>CallWatcher class</p>
+ * Watches for incoming files of some specified directory,
+ * parses them according to the model and stores in the database,
+ * using specified repository
+ */
 public class CallWatcher {
 
     private Logger logger = LoggerFactory.getLogger(CallWatcher.class);
@@ -40,7 +46,6 @@ public class CallWatcher {
     public void watch() {
         WatchService watchService = registerWatchService(directory);
         boolean validResult = true;
-
         while (validResult) {
             validResult = takeKey(watchService);
         }
@@ -48,20 +53,17 @@ public class CallWatcher {
 
     private WatchService registerWatchService(final Path directory) {
         WatchService watchService = null;
-
         try {
             watchService = FileSystems.getDefault().newWatchService();
             directory.register(watchService, ENTRY_CREATE);
         } catch (IOException e) {
             logger.error(e.toString(), e);
         }
-
         return watchService;
     }
 
     private boolean takeKey(final WatchService watchService) {
         boolean valid = true;
-
         try {
             final WatchKey key = watchService.take();
             List<Path> paths = getPaths(key);
@@ -70,14 +72,12 @@ public class CallWatcher {
         } catch (InterruptedException e) {
             logger.error(e.toString(), e);
         }
-
         return valid;
     }
 
     private List<Path> getPaths(final WatchKey key) {
         List<WatchEvent<?>> events = key.pollEvents();
         events.removeIf(event -> event.kind() == OVERFLOW);
-
         return ((List<Path>) events.stream().map(WatchEvent::context).collect(Collectors.toList()));
     }
 

@@ -1,8 +1,16 @@
 package com.intexsoft.call.service;
 
+import com.intexsoft.call.watcher.CallWatcher;
 import com.intexsoft.call.repository.CallRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Service;
 
+/**
+ * <p>CallWatcherRunner class</p>
+ * Implements {@code CommandLineRunner} and runs CallWatcher
+ * Automatically starts on application launch
+ */
+@Service
 public class CallWatcherRunner implements CommandLineRunner {
 
     private static final String CURRENT_DIRECTORY = "";

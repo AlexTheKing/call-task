@@ -1,28 +1,23 @@
 package com.intexsoft.call;
 
-import com.intexsoft.call.repository.CallRepository;
-import com.intexsoft.call.service.CallWatcherRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+
+/**
+ * <p>CallTaskApplication represents SpringBootApplication</p>
+ */
 @SpringBootApplication
-@ComponentScan(basePackages = {"model", "repository"})
+@ComponentScan(basePackages = {"com.intexsoft.call.model", "com.intexsoft.call.repository", "com.intexsoft.call.service"})
 public class CallTaskApplication {
 
+    /**
+     * <p>Entry point of the application</p>
+     *
+     * @param args - command-line arguments of the application
+     */
     public static void main(String[] args) {
         SpringApplication.run(CallTaskApplication.class, args);
-    }
-
-    /**
-     * <p>Creates and executes CallWatcherRunner for looking for incoming call-files</p>
-     *
-     * @param callRepository CRUD Repository for Call entity
-     * @return CallWatcherRunner - CommandLineRunner interface realisation
-     */
-    @Bean
-    public CallWatcherRunner runCallWatcher(final CallRepository callRepository) {
-        return new CallWatcherRunner(callRepository);
     }
 }
