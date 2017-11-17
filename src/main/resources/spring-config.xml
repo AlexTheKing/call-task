@@ -13,37 +13,10 @@
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:component-scan base-package="com.intexsoft.call.repository"/>
-
     <bean id="callWatcherService" class="com.intexsoft.call.service.CallWatcherService">
         <constructor-arg index="0" type="java.lang.String"
                          value="D:\Programming\Sources\Java\Intexsoft Tasks\call-task\build\libs"/>
     </bean>
-
-    <context:property-placeholder
-            location="application.properties"/>
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          p:packagesToScan="com.intexsoft.call.model"
-          p:dataSource-ref="dataSource"
-          p:jpaPropertyMap-ref="jpaPropertyMap"
-          p:jpaVendorAdapter-ref="hibernateVendor"/>
-    <bean id="dataSource"
-          class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close"
-          p:driverClassName="${jdbc.driverClassName}"
-          p:url="${jdbc.url}"
-          p:username="${jdbc.username}"
-          p:password="${jdbc.password}"
-          p:maxActive="${dbcp.maxActive}"
-          p:maxIdle="${dbcp.maxIdle}"
-          p:maxWait="${dbcp.maxWait}"/>
-    <util:map id="jpaPropertyMap">
-        <entry key="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}"/>
-        <entry key="hibernate.dialect" value="${hibernate.dialect}"/>
-    </util:map>
-    <bean id="hibernateVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
+    <import resource="database-config.xml"/>
     <jpa:repositories base-package="com.intexsoft.call.repository"/>
 </beans>
